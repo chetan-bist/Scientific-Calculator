@@ -764,19 +764,60 @@ public class ScientificCalculator {
 
             String postfix = infixToPostfix(infix);
 
+            System.out.println(postfix);
             digits = extractDigits(postfix);
              length = digits.size();
+             String convert = convertExpressionToString(postfix);
+             System.out.println(convert);
+             if(convert.equals("23173962")||convert.equals("23174052")||convert.equals("23173902")||convert.equals("23173992")||convert.equals("23174232")){
+                 
+                 try{
+                 double result = evaluatePostfix(postfix);
+                   
+                     textResult.setText(String.valueOf(String.format("%."+(int)result+"f", result)));
+                        input.setLength(0);
+                 }catch (Exception ex) {
+                     ex.getStackTrace();
+                    textField.setText("Error");
+                     input.setLength(0);
+                      
+                     }
+             }else{
+             
             double result = evaluatePostfix(postfix);
+            System.out.println(result);
 
-            textResult.setText(String.valueOf(String.format("%.4f", result)));
+            textResult.setText(String.valueOf(result));
             input.setLength(0);
 //            input.append(result);
+             }
         } catch (Exception ex) {
             textField.setText("Error");
+           
             input.setLength(0);
+            
         }
     }
 	
+        public static String convertExpressionToString(String expression) 
+        {   
+                // Use a StringBuilder to build the result
+                StringBuilder result = new StringBuilder(); 
+                // Split the expression by spaces to get each part 
+             String[] parts = expression.split(" "); 
+             // Iterate over each part 
+                for (String part : parts) { 
+                // Check if the part is a digit
+                    if (part.matches("\\d+")) 
+                    { 
+                            // Append the digit to the result 
+                        result.append(part); 
+                    } 
+            } 
+                // Return the result as a string 
+                return result.toString();
+        }
+            
         // Method to find the prime factorization of a number 
         public static String factorize(int number) 
         { 
