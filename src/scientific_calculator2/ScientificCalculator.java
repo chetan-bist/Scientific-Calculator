@@ -564,19 +564,13 @@ public class ScientificCalculator {
 		JButton btnN = new JButton("n!");
 		btnN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-		    double a =(Double.parseDouble(textField.getText()));
-		   double f=1;
-		    while(a!=0)
-		    {
-		     f=f*a;
-		     a--;
-		    }
-			textResult.setText(String.valueOf(f));
-                        input.setLength(0);
+		
+                    input.append(" ").append("!").append(" ");
+				textField.setText(input.toString());
+
 			}
 		});
 		btnN.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		btnN.setBounds(10, 437, 64, 50);
                 btnN.setBounds(10, 499, 64, 50);
 		frame.getContentPane().add(btnN);
 		
@@ -798,7 +792,6 @@ public class ScientificCalculator {
             
         }
     }
-	
         public static String convertExpressionToString(String expression) 
         {   
                 // Use a StringBuilder to build the result
@@ -892,7 +885,7 @@ public class ScientificCalculator {
 	                return 1;
 	            case "*": case "÷":
 	                return 2;
-	            case "sin": case "cos": case"√":case"e^":case "tan": case "log": case"ln":case"log10":case "sqrt": case "exp": case "abs":
+	            case "sin": case"!":case "cos": case"√":case"e^":case "tan": case "log": case"ln":case"log10":case "sqrt": case "exp": case "abs":
 	                return 3;
 	            default:
 	                return -1;
@@ -913,10 +906,10 @@ public class ScientificCalculator {
 	                double b = stack.pop();
 	                double a = 0;
 	                if (!token.equals("sin") && !token.equals("cos") && !token.equals("tan") &&
-	                    !token.equals("log") && !token.equals("√") && !token.equals("e^")&& !token.equals("ln")&& !token.equals("sqrt") && !token.equals("exp") && !token.equals("abs")&& !token.equals("log10")) {
+	                    !token.equals("log") && !token.equals("!")&& !token.equals("√") && !token.equals("e^")&& !token.equals("ln")&& !token.equals("sqrt") && !token.equals("exp") && !token.equals("abs")&& !token.equals("log10")) {
 	                    a = stack.pop();
 	                }
-                      
+           
 	                stack.push(applyOp(token, a, b));
 	            }
 	        }
@@ -952,6 +945,8 @@ public class ScientificCalculator {
 
                 return calculator.divide(a, b);
             }
+            case "!":
+                return calculator.factorial((int)b);
             case "sin":
                 return calculator.sine(b, true); // sin is a unary operator
             case "cos":
